@@ -13,7 +13,6 @@ local servers = {
   "tailwindcss",
   "eslint",
   "marksman",
-  "mdx_analyzer",
   "glsl_analyzer",
 }
 

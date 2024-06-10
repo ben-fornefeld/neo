@@ -76,6 +76,7 @@ return {
         "eslint-lsp",
         "prettierd",
         "marksman",
+        "glsl_analyzer",
       },
       automatic_installation = false,
     },
