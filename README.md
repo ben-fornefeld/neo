@@ -1,1 +1,1 @@
-## NvChad - Perzonalized Config
+## NvChad - Personalized Config
