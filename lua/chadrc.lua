@@ -12,7 +12,7 @@ M.ui = {
     ["@comment"] = { italic = true },
   },
 
-  transparency = true,
+  transparency = false,
 }
 
 return M

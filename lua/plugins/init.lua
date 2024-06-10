@@ -29,18 +29,14 @@ return {
         return vim.fn["codeium#Clear"]()
       end, { expr = true, silent = true })
     end,
-    lazy = false,
+    event = "VimEnter",
   },
-  --[[   {
-    "supermaven-inc/supermaven-nvim",
-    config = function()
-      require("supermaven-nvim").setup {}
-    end,
-    lazy = false,
-  }, ]]
   {
     "APZelos/blamer.nvim",
-    lazy = false,
+    event = "VimEnter",
+    init = function()
+      vim.g.blamer_enabled = true
+    end,
   },
   {
     "laytan/tailwind-sorter.nvim",
@@ -53,36 +49,13 @@ return {
     end,
   },
   {
-    "kylechui/nvim-surround",
-    config = function()
-      require("nvim-surround").setup {}
-    end,
-    lazy = false,
-  },
-  {
     "ggandor/leap.nvim",
-    config = function()
-      require("leap").create_default_mappings()
-    end,
-    lazy = false,
-  },
-  {
-    "tikhomirov/vim-glsl",
-    lazy = false,
-  },
-  {
-    "numToStr/Comment.nvim",
-    opts = {
-      -- add any options here
-    },
-    lazy = false,
-  },
-  {
-    "nyoom-engineering/oxocarbon.nvim",
-    lazy = false,
+    event = "VimEnter",
+    config = function() end,
   },
   {
     "rmagatti/auto-session",
+    priority = 1000,
     config = function()
       require("auto-session").setup {
         log_level = "error",
@@ -90,7 +63,7 @@ return {
         auto_restore_enabled = true,
       }
     end,
-    lazy = false,
+    event = "VimEnter",
   },
   {
     "williamboman/mason.nvim",
@@ -101,7 +74,6 @@ return {
         "typescript-language-server",
         "tailwindcss-language-server",
         "eslint-lsp",
-        "rust-analyzer",
         "prettierd",
         "marksman",
       },
@@ -154,12 +126,6 @@ return {
         additional_vim_regex_highlighting = { "markdown" },
       },
     },
-    --[[ config = function()
-      dofile(vim.g.base46_cache .. "syntax")
-      require("nvim-treesitter.configs").setup {}
-      -- tell treesitter to use the markdown parser for mdx files
-      vim.treesitter.language.register("markdown", "mdx")
-    end, ]]
   },
   {
     "windwp/nvim-ts-autotag",
@@ -173,5 +139,39 @@ return {
     config = function()
       require("nvim-ts-autotag").setup()
     end,
+  },
+
+  -- file tree
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    version = "*",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+    },
+    cmd = "Neotree",
+    keys = {},
+    opts = {
+      source_selector = {
+        winbar = true,
+        statusline = false,
+      },
+      filesystem = {
+        filtered_items = {
+          visible = true,
+          hide_dotfiles = false,
+          hide_gitignored = false,
+        },
+        window = {
+          mappings = {},
+        },
+      },
+    },
+    event = "VimEnter",
+  },
+  {
+    "nvim-tree/nvim-tree.lua",
+    enabled = false,
   },
 }
