@@ -8,7 +8,7 @@ vim.wo.relativenumber = true
 -- mdx
 vim.filetype.add {
   extension = {
-    mdx = "markdown",
+    mdx = "markdown.mdx",
   },
 }
 

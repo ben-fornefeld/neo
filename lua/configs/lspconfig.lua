@@ -23,4 +23,6 @@ for _, lsp in ipairs(servers) do
     on_init = on_init,
     capabilities = capabilities,
   }
+
+  ::continue::
 end
