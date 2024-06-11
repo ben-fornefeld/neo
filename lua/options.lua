@@ -1,5 +1,10 @@
 require "nvchad.options"
 
+-- commands
+vim.api.nvim_create_user_command("Transparent", function()
+  require("base46").toggle_transparency()
+end, {})
+
 -- add yours here!
 local o = vim.o
 o.cursorlineopt = "both"
