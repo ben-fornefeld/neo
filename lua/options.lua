@@ -5,15 +5,27 @@ vim.api.nvim_create_user_command("Transparent", function()
   require("base46").toggle_transparency()
 end, {})
 
--- add yours here!
+-- opts
 local o = vim.o
 o.cursorlineopt = "both"
+o.scrolloff = 10
 vim.wo.relativenumber = true
 
--- mdx
+-- filetypes
 vim.filetype.add {
   extension = {
     mdx = "markdown.mdx",
+  },
+}
+
+vim.filetype.add {
+  extension = {
+    frag = "glsl",
+  },
+}
+vim.filetype.add {
+  extension = {
+    vert = "glsl",
   },
 }
 

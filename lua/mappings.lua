@@ -12,7 +12,10 @@ map({ "n", "x", "o" }, "F", "<Plug>(leap-backward)")
 
 -- file tree
 nomap("n", "<C-n>")
-nomap("n", "<leader>e")
 
-map("n", "<C-n>", "<cmd>Neotree toggle<CR>")
-map("n", "<leader>e", "<cmd>Neotree reveal<CR>")
+map("n", "<leader>n", "<cmd>Neotree toggle<CR>")
+
+-- diagnostics
+map("n", "<leader>e", function()
+  vim.diagnostic.open_float()
+end)

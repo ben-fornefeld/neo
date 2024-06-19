@@ -5,7 +5,7 @@
 local M = {}
 
 M.ui = {
-  theme = "chadracula-evondev",
+  theme = "ayu_dark",
 
   hl_override = {
     Comment = { italic = true },
@@ -13,6 +13,22 @@ M.ui = {
   },
 
   transparency = false,
+
+  telescope = {
+    style = "bordered",
+  },
+
+  --[[ tabufline = {
+    modules = {
+      neo = function()
+        return "teeeest"
+      end,
+    },
+  }, ]]
+
+  nvdash = {
+    load_on_startup = true,
+  },
 }
 
 return M
