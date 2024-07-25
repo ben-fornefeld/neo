@@ -1,6 +1,6 @@
 return {
   -- file tree
-  {
+  --[[ {
     "nvim-neo-tree/neo-tree.nvim",
     priority = 1200,
     version = "*",
@@ -29,9 +29,30 @@ return {
     },
     lazy = false,
   },
+  ]]
   {
     "nvim-tree/nvim-tree.lua",
-    enabled = false,
+    opts = {
+      view = {
+        width = 50,
+      },
+      filters = {
+        enable = false,
+      },
+      diagnostics = {
+        enable = true,
+      },
+    },
+  },
+  {
+    "nvim-telescope/telescope.nvim",
+    opts = {
+      pickers = {
+        find_files = {
+          hidden = true,
+        },
+      },
+    },
   },
 
   --[[ -- bufferline

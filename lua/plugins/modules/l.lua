@@ -1,14 +1,5 @@
 return {
   {
-    "akinsho/flutter-tools.nvim",
-    lazy = false,
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "stevearc/dressing.nvim", -- optional for vim.ui.select
-    },
-    config = true,
-  },
-  {
     "stevearc/conform.nvim",
     event = "BufWritePre", -- uncomment for format on save
     config = function()
@@ -51,6 +42,8 @@ return {
         "prettierd",
         "marksman",
         "glsl_analyzer",
+        "gopls",
+        "golangci-lint",
       },
       automatic_installation = false,
     },
@@ -93,6 +86,7 @@ return {
 
         -- low level
         "rust",
+        "go",
         "c",
         "zig",
         "glsl",

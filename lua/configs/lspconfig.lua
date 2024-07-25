@@ -14,13 +14,36 @@ local servers = {
   "eslint",
   "marksman",
   "glsl_analyzer",
+  "gopls",
 }
 
 -- lsps with default config
 for _, lsp in ipairs(servers) do
+  if lsp == "gopls" then
+    lspconfig.gopls.setup {
+      on_attach = function(client)
+        -- Enable golangci-lint integration
+        require("lspconfig").gopls.setup {
+          settings = {
+            gopls = {
+              analyses = {
+                unusedparams = true,
+              },
+              staticcheck = true,
+            },
+          },
+        }
+      end,
+    }
+
+    goto continue
+  end
+
   lspconfig[lsp].setup {
     on_attach = on_attach,
     on_init = on_init,
     capabilities = capabilities,
   }
+
+  ::continue::
 end
