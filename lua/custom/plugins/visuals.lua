@@ -1,5 +1,5 @@
 return {
-  {
+  --[[ {
     'romgrk/barbar.nvim',
     dependencies = {
       'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
@@ -10,24 +10,80 @@ return {
     end,
     opts = {
       animation = false,
-      -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
-      -- animation = true,
-      -- insert_at_start = true,
-      -- …etc.
-      sidebar_filetypes = {
-        -- Use the default values: {event = 'BufWinLeave', text = '', align = 'left'}
-        NvimTree = true,
-        -- Or, specify the text used for the offset:
-        undotree = {
-          text = 'undotree',
-          align = 'center', -- *optionally* specify an alignment (either 'left', 'center', or 'right')
+      icons = {
+        buffer_index = false,
+        buffer_number = false,
+        button = '',
+        -- Enables / disables diagnostic symbols
+        diagnostics = {
+          [vim.diagnostic.severity.ERROR] = { enabled = true, icon = '' },
+          [vim.diagnostic.severity.WARN] = { enabled = false },
+          [vim.diagnostic.severity.INFO] = { enabled = false },
+          [vim.diagnostic.severity.HINT] = { enabled = false },
         },
-        -- Or, specify the event which the sidebar executes when leaving:
-        ['neo-tree'] = { event = 'BufWipeout' },
-        -- Or, specify all three
-        Outline = { event = 'BufWinLeave', text = 'symbols-outline', align = 'right' },
+        filetype = {
+          custom_colors = false,
+          enabled = true,
+        },
+        separator = { left = '▎', right = '' },
+        modified = { button = '●' },
+        pinned = { button = '車', filename = true, separator = { right = '' } },
+        alternate = { filetype = { enabled = false } },
+        current = { buffer_index = false },
+        inactive = { button = '×' },
+        visible = { modified = { buffer_number = false } },
       },
+      sidebar_filetypes = {
+        NvimTree = true,
+        undotree = { text = 'undotree' },
+        ['neo-tree'] = { event = 'BufWipeout' },
+        Outline = { event = 'BufWinLeave', text = 'symbols-outline' },
+      },
+      minimum_padding = 0,
+      maximum_padding = 0,
+      maximum_length = 30,
     },
+  }, ]]
+  {
+    'akinsho/bufferline.nvim',
+    event = 'VeryLazy',
+    version = '*',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      vim.opt.termguicolors = true
+
+      local plug = require 'bufferline'
+
+      plug.setup {
+        options = {
+          diagnostics = 'nvim_lsp',
+          indicator = {
+            icon = '鬼',
+            style = 'icon',
+          },
+          offsets = {
+            {
+              filetype = 'neo-tree',
+              text = 'Neo Tree',
+              highlight = 'Directory',
+              separator = {
+                left = '',
+                right = '',
+              },
+            },
+          },
+          show_tab_indicators = true,
+          show_buffer_close_icons = false,
+          separator_style = 'slant',
+          always_show_bufferline = true,
+          hover = {
+            enabled = true,
+            delay = 200,
+            reveal = { 'close' },
+          },
+        },
+      }
+    end,
   },
   {
     'xiyaowong/transparent.nvim',
@@ -38,10 +94,6 @@ return {
           'NeoTreeNormal',
           'NeoTreeNormalNC',
           'NeoTreeVertSplit',
-          'BufferVisible',
-          'BufferInactive',
-          'BufferTabpages',
-          'BufferTabpageFill',
           'NeoTreeCursorLine',
           'NeoTreeDimText',
           'NeoTreeDirectoryIcon',
@@ -93,11 +145,35 @@ return {
 
   {
     'zaldih/themery.nvim',
-    lazy = false,
+    event = 'VimEnter',
     priority = 1000,
     config = function()
       require('themery').setup {
-        themes = vim.fn.getcompletion('', 'color'),
+        themes = {
+          'tokyonight',
+          'tokyonight-night',
+          'tokyonight-storm',
+          'tokyonight-day',
+          'tokyonight-moon',
+          'catppuccin',
+          'catppuccin-latte',
+          'catppuccin-frappe',
+          'catppuccin-macchiato',
+          'catppuccin-mocha',
+          'ayu',
+          'ayu-dark',
+          'ayu-light',
+          'ayu-mirage',
+          'rose-pine',
+          'rose-pine-moon',
+          'rose-pine-dawn',
+          'kanagawa',
+          'kanagawa-wave',
+          'kanagawa-dragon',
+          'kanagawa-lotus',
+          'everforest',
+          'cyberdream',
+        },
         livePreview = true,
       }
     end,
@@ -121,4 +197,88 @@ return {
     end,
   },
   { 'catppuccin/nvim', name = 'catppuccin', priority = 1000 },
+
+  -- Ayu theme
+  { 'Shatur/neovim-ayu', priority = 1000 },
+
+  -- Rose Pine (pastel theme)
+  {
+    'rose-pine/neovim',
+    name = 'rose-pine',
+    priority = 1000,
+  },
+
+  -- Kanagawa (pastel theme)
+  {
+    'rebelot/kanagawa.nvim',
+    priority = 1000,
+  },
+
+  -- Everforest theme
+  {
+    'sainnhe/everforest',
+    priority = 1000,
+  },
+
+  -- Cyberdream theme
+  {
+    'scottmckendry/cyberdream.nvim',
+    priority = 1000,
+    config = function()
+      require('cyberdream').setup {
+        -- Recommended settings, but can be adjusted according to preference
+        transparent = true,
+        italic_comments = true,
+        hide_fillchars = true,
+        borderless_telescope = true,
+      }
+    end,
+  },
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    event = 'VeryLazy',
+    config = function()
+      require('lualine').setup {
+        options = {
+          theme = 'auto',
+          component_separators = { left = '', right = '' },
+          section_separators = { left = '', right = '' },
+          globalstatus = true,
+        },
+        sections = {
+          lualine_a = {
+            { 'mode', separator = { left = '' }, right_padding = 2 },
+          },
+          lualine_b = {
+            { 'filename', separator = { right = '' }, right_padding = 2 },
+            { 'branch', separator = { right = '' }, right_padding = 2 },
+          },
+          lualine_c = {
+            { 'fileformat', separator = { right = '' }, right_padding = 2 },
+          },
+          lualine_x = {
+            { 'diagnostics', sources = { 'nvim_diagnostic' }, symbols = { error = ' ', warn = ' ', info = ' ' } },
+          },
+          lualine_y = {
+            { 'filetype', separator = { left = '' }, left_padding = 2 },
+            { 'progress', separator = { left = '' }, left_padding = 2 },
+          },
+          lualine_z = {
+            { 'location', separator = { right = '' }, left_padding = 2 },
+          },
+        },
+        inactive_sections = {
+          lualine_a = { 'filename' },
+          lualine_b = {},
+          lualine_c = {},
+          lualine_x = {},
+          lualine_y = {},
+          lualine_z = { 'location' },
+        },
+        tabline = {},
+        extensions = {},
+      }
+    end,
+  },
 }

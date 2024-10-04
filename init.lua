@@ -1,4 +1,3 @@
-require 'custom.mappings'
 require 'custom.options'
 
 -- [[ Basic Autocommands ]]
@@ -114,3 +113,5 @@ require('lazy').setup({
     },
   },
 })
+
+require 'custom.mappings'

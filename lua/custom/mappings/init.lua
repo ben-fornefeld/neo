@@ -1,3 +1,9 @@
+-- Ensure this file is loaded only once
+if vim.g.loaded_custom_mappings then
+  return
+end
+vim.g.loaded_custom_mappings = true
+
 local map = vim.keymap.set
 local del = vim.keymap.del
 
@@ -9,8 +15,6 @@ map('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic m
 map('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
 map('n', '<leader>em', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 map('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
-
-map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 map('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
 map('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
@@ -26,10 +30,16 @@ map('i', '<C-l>', '<Right>', { desc = 'Move cursor right in insert mode' })
 map('i', '<C-j>', '<Down>', { desc = 'Move cursor down in insert mode' })
 map('i', '<C-k>', '<Up>', { desc = 'Move cursor up in insert mode' })
 
--- Themery
-map('n', '<leader>hh', '<Cmd>Themery<CR>', { desc = 'Themes' })
+-- Bufferline
+map('n', '<Tab>', '<Cmd>BufferLineCycleNext<CR>', { desc = 'Go to next buffer' })
+map('n', '<S-Tab>', '<Cmd>BufferLineCyclePrev<CR>', { desc = 'Go to previous buffer' })
+map('n', '<C-x>', '<Cmd>bdelete!<CR>', { desc = 'Close current buffer (file or terminal)' })
 
--- Barbar
-map('n', '<Tab>', '<Cmd>BufferNext<CR>', { desc = 'Go to next buffer' })
-map('n', '<S-Tab>', '<Cmd>BufferPrevious<CR>', { desc = 'Go to previous buffer' })
-map('n', '<C-q>', '<Cmd>BufferClose<CR>', { desc = 'Close current buffer' })
+-- Themery
+map('n', '<leader>tt', '<Cmd>Themery<CR>', { desc = 'Themes' })
+
+-- Terminal mappings
+map('n', '<leader>th', '<Cmd>split | terminal<CR>', { desc = 'Open horizontal terminal' })
+map('n', '<leader>tv', '<Cmd>vsplit | terminal<CR>', { desc = 'Open vertical terminal' })
+map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+map('t', '<C-x>', '<C-\\><C-n><Cmd>BufferClose!<CR>', { desc = 'Close current terminal buffer' })

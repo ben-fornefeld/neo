@@ -5,3 +5,32 @@ nvim
 
 spell/
 lazy-lock.json
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# Neovim
+.netrwhist
+*~
+
+# Lua
+lua_modules/
+
+# Plugin directories
+plugged/
+autoload/plug.vim
+
+# Compiled Lua sources
+luac.out
+
+# Log files
+*.log
