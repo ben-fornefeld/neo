@@ -24,9 +24,9 @@ end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
-  { 'numToStr/Comment.nvim', opts = {} },
-  { -- Useful plugin to show you pending keybinds.
+  'tpope/vim-sleuth',   -- Detect tabstop and shiftwidth automatically
+  { 'numToStr/Comment.nvim',    opts = {} },
+  {                     -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     config = function() -- This is the function that runs, AFTER loading

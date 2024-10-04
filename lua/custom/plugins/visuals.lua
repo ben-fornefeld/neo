@@ -1,57 +1,10 @@
 return {
-  --[[ {
-    'romgrk/barbar.nvim',
-    dependencies = {
-      'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
-      'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
-    },
-    init = function()
-      vim.g.barbar_auto_setup = false
-    end,
-    opts = {
-      animation = false,
-      icons = {
-        buffer_index = false,
-        buffer_number = false,
-        button = '',
-        -- Enables / disables diagnostic symbols
-        diagnostics = {
-          [vim.diagnostic.severity.ERROR] = { enabled = true, icon = '' },
-          [vim.diagnostic.severity.WARN] = { enabled = false },
-          [vim.diagnostic.severity.INFO] = { enabled = false },
-          [vim.diagnostic.severity.HINT] = { enabled = false },
-        },
-        filetype = {
-          custom_colors = false,
-          enabled = true,
-        },
-        separator = { left = '▎', right = '' },
-        modified = { button = '●' },
-        pinned = { button = '車', filename = true, separator = { right = '' } },
-        alternate = { filetype = { enabled = false } },
-        current = { buffer_index = false },
-        inactive = { button = '×' },
-        visible = { modified = { buffer_number = false } },
-      },
-      sidebar_filetypes = {
-        NvimTree = true,
-        undotree = { text = 'undotree' },
-        ['neo-tree'] = { event = 'BufWipeout' },
-        Outline = { event = 'BufWinLeave', text = 'symbols-outline' },
-      },
-      minimum_padding = 0,
-      maximum_padding = 0,
-      maximum_length = 30,
-    },
-  }, ]]
   {
     'akinsho/bufferline.nvim',
     event = 'VeryLazy',
     version = '*',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
-      vim.opt.termguicolors = true
-
       local plug = require 'bufferline'
 
       plug.setup {
@@ -123,6 +76,24 @@ return {
           'NeoTreeRootName',
           'NeoTreeSymbolicLinkTarget',
           'NeoTreeWindowsHidden',
+          -- Bufferline highlights
+          'BufferLineFill',
+          'BufferLineBackground',
+          'BufferLineBufferVisible',
+          'BufferLineBufferSelected',
+          'BufferLineTab',
+          'BufferLineTabSelected',
+          'BufferLineTabClose',
+          'BufferLineIndicatorSelected',
+          'BufferLineSeparator',
+          'BufferLineSeparatorVisible',
+          'BufferLineSeparatorSelected',
+          'BufferLineCloseButton',
+          'BufferLineCloseButtonVisible',
+          'BufferLineCloseButtonSelected',
+          'BufferLineModified',
+          'BufferLineModifiedVisible',
+          'BufferLineModifiedSelected',
         },
         exclude_groups = {
           'AvanteNormal',
@@ -132,10 +103,6 @@ return {
           'AvanteTabline',
           'AvanteTablineFill',
           'AvanteTablineSel',
-          'NeoTreeFloatBorder',
-          'NeoTreeFloatTitle',
-          'NeoTreeTitleBar',
-          'NeoTreeWinSeparator',
         },
       }
     end,
@@ -196,7 +163,7 @@ return {
       --  vim.cmd.hi 'Comment gui=none'
     end,
   },
-  { 'catppuccin/nvim', name = 'catppuccin', priority = 1000 },
+  { 'catppuccin/nvim',   name = 'catppuccin', priority = 1000 },
 
   -- Ayu theme
   { 'Shatur/neovim-ayu', priority = 1000 },
@@ -235,50 +202,126 @@ return {
     end,
   },
   {
-    'nvim-lualine/lualine.nvim',
+    'tamton-aquib/staline.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    event = 'VeryLazy',
     config = function()
-      require('lualine').setup {
-        options = {
-          theme = 'auto',
-          component_separators = { left = '', right = '' },
-          section_separators = { left = '', right = '' },
-          globalstatus = true,
-        },
+      require 'staline'.setup {
         sections = {
-          lualine_a = {
-            { 'mode', separator = { left = '' }, right_padding = 2 },
+          left  = {
+            ' ', 'right_sep', '-mode', 'left_sep', ' ',
+            'right_sep', '-file_name', 'left_sep', ' ',
+            'right_sep', '-branch', 'left_sep', ' ',
           },
-          lualine_b = {
-            { 'filename', separator = { right = '' }, right_padding = 2 },
-            { 'branch', separator = { right = '' }, right_padding = 2 },
-          },
-          lualine_c = {
-            { 'fileformat', separator = { right = '' }, right_padding = 2 },
-          },
-          lualine_x = {
-            { 'diagnostics', sources = { 'nvim_diagnostic' }, symbols = { error = ' ', warn = ' ', info = ' ' } },
-          },
-          lualine_y = {
-            { 'filetype', separator = { left = '' }, left_padding = 2 },
-            { 'progress', separator = { left = '' }, left_padding = 2 },
-          },
-          lualine_z = {
-            { 'location', separator = { right = '' }, left_padding = 2 },
-          },
+          mid   = { 'lsp' },
+          right = {
+            'right_sep', '-cool_symbol', 'left_sep', ' ',
+            'right_sep', '- ', '-lsp_name', '- ', 'left_sep',
+            'right_sep', '-line_column', 'left_sep', ' ',
+          }
         },
-        inactive_sections = {
-          lualine_a = { 'filename' },
-          lualine_b = {},
-          lualine_c = {},
-          lualine_x = {},
-          lualine_y = {},
-          lualine_z = { 'location' },
+
+        defaults = {
+          fg = "#986fec",
+          cool_symbol = " ⟁ ",
+          -- line_column = "%l:%c [%L]",
+          true_colors = true,
+          line_column = "[%l:%c] 並%p%% ",
         },
-        tabline = {},
-        extensions = {},
+        mode_icons = {
+          n  = "₪",
+          i  = "☥",
+          ic = "☿",
+          c  = "Ω",
+          v  = "ℵ" -- etc
+        },
+        mode_colors = {
+          n  = "#181a23",
+          i  = "#181a23",
+          ic = "#181a23",
+          c  = "#181a23",
+        }
       }
     end,
+  },
+  {
+    "folke/noice.nvim",
+    event = "VimEnter",
+    opts = {
+      -- add any options here
+    },
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    },
+    config = function()
+      require("noice").setup({
+        lsp = {
+          -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+          override = {
+            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+            ["vim.lsp.util.stylize_markdown"] = true,
+            ["cmp.entry.get_documentation"] = true,
+          },
+        },
+        -- you can enable a preset for easier configuration
+        presets = {
+          bottom_search = true,         -- use a classic bottom cmdline for search
+          command_palette = true,       -- position the cmdline and popupmenu together
+          long_message_to_split = true, -- long messages will be sent to a split
+          inc_rename = false,           -- enables an input dialog for inc-rename.nvim
+          lsp_doc_border = false,       -- add a border to hover docs and signature help
+        },
+        cmdline = {
+          view = "cmdline",
+        },
+        views = {
+          cmdline_popup = {
+            border = {
+              style = "none",
+              padding = { 1, 2 },
+            },
+            filter_options = {},
+            win_options = {
+              winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+            },
+          },
+        },
+      })
+    end
+  },
+  {
+    "rcarriga/nvim-notify",
+    config = function()
+      require("notify").setup({
+        background_colour = "#000000",
+        fps = 120,
+        icons = {
+          DEBUG = "",
+          ERROR = "",
+          INFO = "",
+          TRACE = "✎",
+          WARN = ""
+        },
+        level = 2, -- Show only warnings and errors
+        minimum_width = 50,
+        max_width = 150,
+        time_formats = {
+          ["*short"] = "[%H:%M]",
+          ["*long"] = "[%Y-%m-%d %H:%M]",
+          ["*full"] = "[%Y-%m-%d %H:%M:%S]",
+        },
+        max_height = 20,
+        on_open = function() end,
+        on_close = function() end,
+        stages = "fade",
+        render = "compact",
+        timeout = 3000,
+        top_down = true,
+        filter = function(notification)
+          -- Exclude "Message" level notifications
+          return notification.level ~= vim.log.levels.MESSAGE
+        end
+      })
+    end
   },
 }

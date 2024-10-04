@@ -21,7 +21,7 @@ return {
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -47,15 +47,25 @@ return {
       -- See `:help telescope` and `:help telescope.setup()`
       require('telescope').setup {
         defaults = {
-          layout_strategy = 'horizontal',
+          layout_strategy = 'flex',
           layout_config = {
             horizontal = {
-              width = 0.7,
-              height = 0.5,
+              width = 0.9,
+              height = 0.9,
               preview_width = 0.5,
-              prompt_position = 'bottom',
+            },
+            vertical = {
+              width = 0.9,
+              height = 0.9,
+              preview_height = 0.5,
             },
           },
+          borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
+          prompt_prefix = " ",
+          selection_caret = " ",
+          path_display = { "truncate" },
+          sorting_strategy = "ascending",
+          winblend = 0,
         },
         pickers = {
           colorscheme = {
@@ -63,7 +73,9 @@ return {
           },
         },
         extensions = {
-          ['ui-select'] = {},
+          ['ui-select'] = {
+            require('telescope.themes').get_dropdown {}
+          },
         },
       }
 
@@ -72,7 +84,7 @@ return {
       -- Enable Telescope extensions if they are installed
       pcall(mod.load_extension, 'fzf')
       pcall(mod.load_extension, 'ui-select')
-
+      pcall(mod.load_extension, 'noice')
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
       vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elp' })
