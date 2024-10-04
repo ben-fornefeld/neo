@@ -15,7 +15,7 @@ return {
   },
   opts = {
     source_selector = {
-      winbar = true,
+      winbar = false,
       statusline = false,
     },
     filesystem = {
@@ -24,6 +24,7 @@ return {
         hide_dotfiles = false,
         hide_gitignored = false,
       },
+      follow_current_file = true,
       window = {
         mappings = {
           -- [''] = 'close_window',
