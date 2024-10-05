@@ -108,99 +108,6 @@ return {
     end,
   },
 
-  -- THEMES
-
-  {
-    'zaldih/themery.nvim',
-    event = 'VimEnter',
-    priority = 1000,
-    config = function()
-      require('themery').setup {
-        themes = {
-          'tokyonight',
-          'tokyonight-night',
-          'tokyonight-storm',
-          'tokyonight-day',
-          'tokyonight-moon',
-          'catppuccin',
-          'catppuccin-latte',
-          'catppuccin-frappe',
-          'catppuccin-macchiato',
-          'catppuccin-mocha',
-          'ayu',
-          'ayu-dark',
-          'ayu-light',
-          'ayu-mirage',
-          'rose-pine',
-          'rose-pine-moon',
-          'rose-pine-dawn',
-          'kanagawa',
-          'kanagawa-wave',
-          'kanagawa-dragon',
-          'kanagawa-lotus',
-          'everforest',
-          'cyberdream',
-        },
-        livePreview = true,
-      }
-    end,
-  },
-
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'folke/tokyonight.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    init = function()
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      -- vim.cmd.colorscheme 'tokyonight-night'
-
-      -- You can configure highlights by doing something like:
-      --  vim.cmd.hi 'Comment gui=none'
-    end,
-  },
-  { 'catppuccin/nvim',   name = 'catppuccin', priority = 1000 },
-
-  -- Ayu theme
-  { 'Shatur/neovim-ayu', priority = 1000 },
-
-  -- Rose Pine (pastel theme)
-  {
-    'rose-pine/neovim',
-    name = 'rose-pine',
-    priority = 1000,
-  },
-
-  -- Kanagawa (pastel theme)
-  {
-    'rebelot/kanagawa.nvim',
-    priority = 1000,
-  },
-
-  -- Everforest theme
-  {
-    'sainnhe/everforest',
-    priority = 1000,
-  },
-
-  -- Cyberdream theme
-  {
-    'scottmckendry/cyberdream.nvim',
-    priority = 1000,
-    config = function()
-      require('cyberdream').setup {
-        -- Recommended settings, but can be adjusted according to preference
-        transparent = true,
-        italic_comments = true,
-        hide_fillchars = true,
-        borderless_telescope = true,
-      }
-    end,
-  },
   {
     'tamton-aquib/staline.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
@@ -222,7 +129,9 @@ return {
 
         defaults = {
           fg = "#986fec",
-          cool_symbol = " ⟁ ",
+          cool_symbol = "",
+          left_separator = "",
+          right_separator = "",
           -- line_column = "%l:%c [%L]",
           true_colors = true,
           line_column = "[%l:%c] 並%p%% ",
@@ -324,4 +233,162 @@ return {
       })
     end
   },
+
+  -- THEMES
+
+  {
+    'zaldih/themery.nvim',
+    event = 'VimEnter',
+    priority = 1000,
+    config = function()
+      require('themery').setup {
+        themes = {
+          'tokyonight',
+          'tokyonight-night',
+          'tokyonight-storm',
+          'tokyonight-day',
+          'tokyonight-moon',
+          'catppuccin',
+          'catppuccin-latte',
+          'catppuccin-frappe',
+          'catppuccin-macchiato',
+          'catppuccin-mocha',
+          'flow',
+          'ayu',
+          'ayu-dark',
+          'ayu-light',
+          'ayu-mirage',
+          'rose-pine',
+          'rose-pine-moon',
+          'rose-pine-dawn',
+          'kanagawa',
+          'kanagawa-wave',
+          'kanagawa-dragon',
+          'kanagawa-lotus',
+          'everforest',
+          'cyberdream',
+          'dracula',
+          'nordic',
+          'melange',
+          'solarized-osaka',
+          'nord',
+          'oxocarbon',
+          'onedark',
+          'onelight',
+          'onedark_vivid',
+          'onedark_dark',
+        },
+        livePreview = true,
+      }
+    end,
+  },
+
+  { -- You can easily change to a different colorscheme.
+    -- Change the name of the colorscheme plugin below, and then
+    -- change the command in the config to whatever the name of that colorscheme is.
+    --
+    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+    'folke/tokyonight.nvim',
+    priority = 1000, -- Make sure to load this before all the other start plugins.
+    init = function()
+      -- Load the colorscheme here.
+      -- Like many other themes, this one has different styles, and you could load
+      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+      -- vim.cmd.colorscheme 'tokyonight-night'
+
+      -- You can configure highlights by doing something like:
+      --  vim.cmd.hi 'Comment gui=none'
+    end,
+  },
+  { 'catppuccin/nvim',   name = 'catppuccin', priority = 1000 },
+
+  -- Ayu theme
+  { 'Shatur/neovim-ayu', priority = 1000 },
+
+  -- Rose Pine (pastel theme)
+  {
+    'rose-pine/neovim',
+    name = 'rose-pine',
+    priority = 1000,
+  },
+
+  -- Kanagawa (pastel theme)
+  {
+    'rebelot/kanagawa.nvim',
+    priority = 1000,
+  },
+
+  -- Everforest theme
+  {
+    'sainnhe/everforest',
+    priority = 1000,
+  },
+
+  {
+    "0xstepit/flow.nvim",
+    name = "flow",
+    priority = 1000,
+  },
+
+  -- Cyberdream theme
+  {
+    'scottmckendry/cyberdream.nvim',
+    priority = 1000,
+    config = function()
+      require('cyberdream').setup {
+        -- Recommended settings, but can be adjusted according to preference
+        transparent = true,
+        italic_comments = true,
+        hide_fillchars = true,
+        borderless_telescope = true,
+      }
+    end,
+  },
+
+  -- Dracula theme
+  {
+    'Mofiqul/dracula.nvim',
+    priority = 1000,
+  },
+
+  -- Nordic theme
+  {
+    'AlexvZyl/nordic.nvim',
+    priority = 1000,
+    config = function()
+      require('nordic').load()
+    end
+  },
+
+  -- Melange theme
+  {
+    'savq/melange-nvim',
+    priority = 1000,
+  },
+
+  -- Solarized Osaka theme
+  {
+    'craftzdog/solarized-osaka.nvim',
+    priority = 1000,
+    opts = {},
+  },
+
+  -- Nord theme
+  {
+    'shaunsingh/nord.nvim',
+    priority = 1000,
+  },
+
+  -- Oxocarbon theme
+  {
+    'nyoom-engineering/oxocarbon.nvim',
+    priority = 1000,
+  },
+
+  -- OneDarkPro theme
+  {
+    'olimorris/onedarkpro.nvim',
+    priority = 1000,
+  },
+
 }

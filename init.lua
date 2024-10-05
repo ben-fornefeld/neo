@@ -114,4 +114,6 @@ require('lazy').setup({
   },
 })
 
+vim.opt.cmdheight = 1
+
 require 'custom.mappings'

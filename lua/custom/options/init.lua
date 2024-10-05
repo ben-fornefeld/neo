@@ -1,9 +1,6 @@
 -- views can only be fully collapsed with the global statusline (avante)
 vim.opt.laststatus = 3
 
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -44,7 +41,7 @@ vim.opt.smartcase = true
 vim.opt.signcolumn = 'yes'
 
 -- Decrease update time
-vim.opt.updatetime = 250
+vim.opt.updatetime = 100
 
 -- Decrease mapped sequence wait time
 -- Displays which-key popup sooner
@@ -60,6 +57,21 @@ vim.opt.splitbelow = true
 vim.opt.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
+vim.diagnostic.config({
+	virtual_text = {
+		prefix = function(diagnostic)
+			local icons = {
+				[1] = ' ',
+				[2] = ' ',
+				[3] = ' 󰙎',
+				[4] = ' ⚐',
+			}
+			return icons[diagnostic.severity] or tostring(diagnostic.severity)
+		end,
+	},
+	severity_sort = true,
+})
+
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
 
@@ -68,9 +80,6 @@ vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 20
-
--- [[ Basic Keymaps ]]
---  See `:help vim.keymap.set()`
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true

@@ -1,18 +1,25 @@
 return {
-  --[[ {
-    'stevearc/conform.nvim',
-    event = 'BufWritePre', -- uncomment for format on save
-    config = function()
-      require 'configs.conform'
-    end,
-  }, ]]
   {
     'folke/trouble.nvim',
-    opts = {}, -- for default options, refer to the configuration section for custom setup.
+    event = 'VeryLazy',
+    opts = {
+      modes = {
+        diagnostics = {
+          relative = "win",
+          size = 0.4,
+          preview = {
+            type = "split",
+            relative = "win",
+            position = "right",
+            size = 0.5,
+          },
+        },
+      },
+    }, -- for default options, refer to the configuration section for custom setup.
     cmd = 'Trouble',
     keys = {
       {
-        '<leader>q',
+        '<leader>x',
         '<cmd>Trouble diagnostics toggle<cr>',
         desc = 'Diagnostics (Trouble)',
       },
@@ -21,7 +28,7 @@ return {
         '<leader>xX',
         '<cmd>Trouble diagnostics toggle filter.buf=0<cr>',
         desc = 'Buffer Diagnostics (Trouble)',
-      },
+     },
       {
         '<leader>cs',
         '<cmd>Trouble symbols toggle focus=false<cr>',
@@ -46,6 +53,7 @@ return {
   },
   {
     'laytan/tailwind-sorter.nvim',
+    event = "VeryLazy",
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-lua/plenary.nvim' },
     build = 'cd formatter && npm ci && npm run build',
     config = true,
@@ -93,8 +101,6 @@ return {
         -- low level
         'go',
         'glsl',
-
-        -- added language
       },
       highlight = {
         enable = true,
