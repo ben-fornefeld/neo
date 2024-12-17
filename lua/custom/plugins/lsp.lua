@@ -145,10 +145,36 @@ return {
         cssls = {},
         css_variables = {},
         cssmodules_ls = {},
-        gopls = {},
+        terraformls = {
+          settings = {
+            terraform = {
+              experimentalFeatures = {
+                validateOnSave = true,
+              },
+            },
+          },
+        },
+        gopls = {
+          settings = {
+            gopls = {
+              formatting = {
+                tabWidth = 4,
+                tabSize = 4,
+                useTabs = false
+              },
+              analyses = {
+                unusedparams = true,
+              },
+              usePlaceholders = true,
+              completeUnimported = true,
+              staticcheck = true,
+            },
+          },
+        },
         elixirls = {},
         pyright = {},
         templ = {},
+        solargraph = {}, -- Ruby LSP
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},
@@ -165,6 +191,18 @@ return {
         },
       }
 
+      -- Set up specific indentation for Go files
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "go",
+        callback = function()
+          vim.bo.tabstop = 4
+          vim.bo.shiftwidth = 4
+          vim.bo.softtabstop = 4
+          vim.bo.expandtab = false -- Go uses real tabs
+        end
+      })
+
+
       -- Ensure the servers and tools above are installed
       --  To check the current status of installed tools and/or manually install
       --  other tools, you can run
@@ -177,7 +215,10 @@ return {
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format Lua code
+        'stylua',       -- Used to format Lua code
+        'solargraph',   -- Ruby LSP
+        'rubocop',      -- Ruby formatter
+        'terraform-ls', -- Terraform LSP
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -235,6 +276,7 @@ return {
         python = { 'black' },
         templ = { 'templ' },
         go = { 'gofumpt' },
+        ruby = { 'rubocop' },
       },
     },
   },

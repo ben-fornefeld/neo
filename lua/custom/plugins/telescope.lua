@@ -85,6 +85,7 @@ return {
       pcall(mod.load_extension, 'fzf')
       pcall(mod.load_extension, 'ui-select')
       pcall(mod.load_extension, 'noice')
+      pcall(mod.load_extension, 'todo-comments')
 
 
       local find_opts = { hidden = true, file_ignore_patterns = { ".git/", "node_modules/", "build/", "dist/" } }
@@ -131,6 +132,11 @@ return {
 
       -- Add keybinding for git_status
       vim.keymap.set('n', '<leader>fg', builtin.git_status, { desc = '[F]ind [G]it changes' })
+
+      -- Add keybinding for todo comments with default ignore patterns
+      vim.keymap.set('n', '<leader>ft', function()
+        require('telescope').extensions['todo-comments'].todo(find_opts)
+      end, { desc = '[F]ind [T]odo comments' })
     end,
   },
 }

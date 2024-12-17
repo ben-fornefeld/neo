@@ -97,6 +97,8 @@ return {
         'elixir',
         'templ',
         'python',
+        "ruby",
+        "erb",
 
         -- low level
         'go',

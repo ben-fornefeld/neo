@@ -16,7 +16,7 @@ vim.g.have_nerd_font = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 
-vim.opt.termguicolors = true
+vim.opt.termguicolors = true -- Enable true color support
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -83,6 +83,10 @@ vim.opt.scrolloff = 20
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
+
+-- set tag space width
+vim.opt.tabstop = 4
+
 
 -- cursor blinking
 vim.api.nvim_command 'set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175'

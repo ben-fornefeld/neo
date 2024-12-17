@@ -30,6 +30,7 @@ return {
       window = {
         mappings = {
           -- [''] = 'close_window',
+          ['<S-w>'] = 'close_all_nodes',
         },
       },
     },

@@ -1,4 +1,5 @@
 return {
+  { 'folke/todo-comments.nvim', event = 'VimEnter',  dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
   {
     'akinsho/bufferline.nvim',
     event = 'VeryLazy',
@@ -27,7 +28,7 @@ return {
           },
           show_tab_indicators = true,
           show_buffer_close_icons = false,
-          separator_style = 'slant',
+          separator_style = vim.g.transparent_enabled == true and 'thin' or 'slant',
           always_show_bufferline = true,
           hover = {
             enabled = true,
@@ -44,56 +45,6 @@ return {
     config = function()
       require('transparent').setup {
         extra_groups = {
-          'NeoTreeNormal',
-          'NeoTreeNormalNC',
-          'NeoTreeVertSplit',
-          'NeoTreeCursorLine',
-          'NeoTreeDimText',
-          'NeoTreeDirectoryIcon',
-          'NeoTreeDirectoryName',
-          'NeoTreeDotfile',
-          'NeoTreeFileIcon',
-          'NeoTreeFileName',
-          'NeoTreeFileNameOpened',
-          'NeoTreeFilterTerm',
-          'NeoTreeGitAdded',
-          'NeoTreeGitConflict',
-          'NeoTreeGitDeleted',
-          'NeoTreeGitIgnored',
-          'NeoTreeGitModified',
-          'NeoTreeGitUnstaged',
-          'NeoTreeGitUntracked',
-          'NeoTreeGitStaged',
-          'NeoTreeHiddenByName',
-          'NeoTreeIndentMarker',
-          'NeoTreeExpander',
-          'NeoTreeSignColumn',
-          'NeoTreeStats',
-          'NeoTreeStatsHeader',
-          'NeoTreeStatusLine',
-          'NeoTreeStatusLineNC',
-          'NeoTreeEndOfBuffer',
-          'NeoTreeRootName',
-          'NeoTreeSymbolicLinkTarget',
-          'NeoTreeWindowsHidden',
-          -- Bufferline highlights
-          'BufferLineFill',
-          'BufferLineBackground',
-          'BufferLineBufferVisible',
-          'BufferLineBufferSelected',
-          'BufferLineTab',
-          'BufferLineTabSelected',
-          'BufferLineTabClose',
-          'BufferLineIndicatorSelected',
-          'BufferLineSeparator',
-          'BufferLineSeparatorVisible',
-          'BufferLineSeparatorSelected',
-          'BufferLineCloseButton',
-          'BufferLineCloseButtonVisible',
-          'BufferLineCloseButtonSelected',
-          'BufferLineModified',
-          'BufferLineModifiedVisible',
-          'BufferLineModifiedSelected',
         },
         exclude_groups = {
           'AvanteNormal',
@@ -103,11 +54,36 @@ return {
           'AvanteTabline',
           'AvanteTablineFill',
           'AvanteTablineSel',
+          -- Exclude todo-comments highlight groups
+          'TodoBgTODO',
+          'TodoBgFIX',
+          'TodoBgHACK',
+          'TodoBgWARN',
+          'TodoBgPERF',
+          'TodoBgNOTE',
+          'TodoBgTEST',
+          'TodoFgTODO',
+          'TodoFgFIX',
+          'TodoFgHACK',
+          'TodoFgWARN',
+          'TodoFgPERF',
+          'TodoFgNOTE',
+          'TodoFgTEST',
+          'TodoSignTODO',
+          'TodoSignFIX',
+          'TodoSignHACK',
+          'TodoSignWARN',
+          'TodoSignPERF',
+          'TodoSignNOTE',
+          'TodoSignTEST',
         },
+        on_clear = function()
+          require('transparent').clear_prefix('BufferLine')
+          require('transparent').clear_prefix('NeoTree')
+        end
       }
     end,
   },
-
   {
     'tamton-aquib/staline.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
@@ -277,6 +253,24 @@ return {
           'onelight',
           'onedark_vivid',
           'onedark_dark',
+          'gruvbox',
+          "lackluster",
+          'vague',
+          'neon',
+          "sonokai",
+          "github_dark",
+          "github_light",
+          "github_dimmed",
+          "github_dark_default",
+          "github_dark_colorblind",
+          "github_dark_high_contrast",
+          "github_dark_dimmed",
+          "github_light_default",
+          "github_light_colorblind",
+          "github_light_high_contrast",
+          "github_light_dimmed",
+          "github_dark_tritanopia",
+          "github_light_tritanopia",
         },
         livePreview = true,
       }
@@ -300,10 +294,10 @@ return {
       --  vim.cmd.hi 'Comment gui=none'
     end,
   },
-  { 'catppuccin/nvim',   name = 'catppuccin', priority = 1000 },
+  { 'catppuccin/nvim',          name = 'catppuccin', priority = 1000 },
 
   -- Ayu theme
-  { 'Shatur/neovim-ayu', priority = 1000 },
+  { 'Shatur/neovim-ayu',        priority = 1000 },
 
   -- Rose Pine (pastel theme)
   {
@@ -391,4 +385,33 @@ return {
     priority = 1000,
   },
 
+  -- Gruvbox theme
+  {
+    'ellisonleao/gruvbox.nvim',
+    priority = 1000,
+    config = function()
+      require('gruvbox').setup()
+    end
+  },
+  {
+    "slugbyte/lackluster.nvim",
+    priority = 1000,
+  },
+  {
+    'vague2k/vague.nvim',
+    priority = 1000,
+  },
+  {
+    "Zeioth/neon.nvim",
+    priority = 1000,
+  },
+  {
+    'sainnhe/sonokai',
+    priority = 1000,
+  },
+  {
+    'projekt0n/github-nvim-theme',
+    name = 'github-theme',
+    priority = 1000,
+  }
 }

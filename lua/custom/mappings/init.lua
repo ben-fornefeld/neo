@@ -7,6 +7,8 @@ vim.g.loaded_custom_mappings = true
 local map = vim.keymap.set
 local del = vim.keymap.del
 
+map("i", "jj", "<Esc>")
+
 -- quick escape search
 map('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
