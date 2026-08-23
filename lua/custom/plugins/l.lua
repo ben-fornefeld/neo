@@ -79,6 +79,9 @@ return {
   },
   {
     'nvim-treesitter/nvim-treesitter',
+    branch = 'master',
+    event = { 'BufReadPost', 'BufNewFile' },
+    build = ':TSUpdate',
     opts = {
       ensure_installed = {
         -- defaults
@@ -92,6 +95,8 @@ return {
         'javascript',
         'typescript',
         'tsx',
+        'hcl',
+        'terraform',
         'markdown',
         'dart',
         'elixir',

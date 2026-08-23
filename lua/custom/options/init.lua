@@ -21,8 +21,8 @@ vim.opt.termguicolors = true -- Enable true color support
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
 
--- Don't show the mode, since it's already in the status line
-vim.opt.showmode = false
+-- Show mode in command line when using the built-in statusline
+vim.opt.showmode = true
 
 -- Sync clipboard between OS and Neovim.
 vim.opt.clipboard = 'unnamedplus'
@@ -41,7 +41,7 @@ vim.opt.smartcase = true
 vim.opt.signcolumn = 'yes'
 
 -- Decrease update time
-vim.opt.updatetime = 100
+vim.opt.updatetime = 300
 
 -- Decrease mapped sequence wait time
 -- Displays which-key popup sooner
@@ -79,7 +79,7 @@ vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 20
+vim.opt.scrolloff = 10
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
@@ -90,3 +90,18 @@ vim.opt.tabstop = 4
 
 -- cursor blinking
 vim.api.nvim_command 'set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175'
+
+-- [[ Neovide GUI ]]
+-- These only apply when running inside Neovide (ignored in a terminal).
+if vim.g.neovide then
+  -- Transparency + blur to match Ghostty (background-opacity = 0.9, background-blur-radius = 60).
+  -- Neovide has no blur-radius option; it uses the macOS system blur.
+  vim.g.neovide_opacity = 0.9
+  vim.g.neovide_normal_opacity = 0.9
+  vim.g.neovide_window_blurred = true
+
+  -- No cursor trail animation: cursor jumps instantly, no particle effects.
+  vim.g.neovide_cursor_animation_length = 0
+  vim.g.neovide_cursor_trail_size = 0
+  vim.g.neovide_cursor_vfx_mode = ''
+end
