@@ -129,7 +129,7 @@ map('t', '<C-x>', function()
 end, { desc = 'Close terminal split and kill terminal buffer' })
 
 -- Git diff views
-map('n', '<leader>gg', '<Cmd>DiffviewOpen<CR>', { desc = 'Open git diff' })
+map('n', '<leader>gg', '<Cmd>DiffviewOpen origin/main...HEAD<CR>', { desc = 'Open branch diff' })
 map('n', '<leader>gf', '<Cmd>DiffviewFileHistory %<CR>', { desc = 'Current file git history' })
 map('n', '<leader>gF', '<Cmd>DiffviewFileHistory<CR>', { desc = 'Repository git history' })
 map('n', '<leader>gq', '<Cmd>DiffviewClose<CR>', { desc = 'Close git diff' })
