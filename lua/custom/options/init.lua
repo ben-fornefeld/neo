@@ -24,8 +24,12 @@ vim.opt.mouse = 'a'
 -- Show mode in command line when using the built-in statusline
 vim.opt.showmode = true
 
--- Sync clipboard between OS and Neovim.
+-- Sync clipboard between OS and Neovim. Wayland needs wl-clipboard; without it
+-- fall back to OSC 52 so yanks still leave the editor.
 vim.opt.clipboard = 'unnamedplus'
+if vim.env.WAYLAND_DISPLAY and vim.fn.executable 'wl-copy' == 0 then
+  vim.g.clipboard = 'osc52'
+end
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -98,7 +102,7 @@ if vim.g.neovide then
   -- Neovide has no blur-radius option; it uses the macOS system blur.
   vim.g.neovide_opacity = 0.9
   vim.g.neovide_normal_opacity = 0.9
-  vim.g.neovide_window_blurred = true
+  vim.g.neovide_window_blurred = vim.fn.has 'mac' == 1
 
   -- No cursor trail animation: cursor jumps instantly, no particle effects.
   vim.g.neovide_cursor_animation_length = 0

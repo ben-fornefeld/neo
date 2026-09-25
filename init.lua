@@ -1,6 +1,9 @@
 require 'custom.options'
 
-vim.o.guifont = 'Berkeley Mono:h13:e-subpixelantialias:h-none'
+-- Berkeley Mono is only installed on the Mac; e-subpixelantialias and h-none
+-- are macOS rendering options that look wrong elsewhere.
+vim.o.guifont = vim.fn.has 'mac' == 1 and 'Berkeley Mono:h13:e-subpixelantialias:h-none'
+  or 'CaskaydiaMono Nerd Font:h11'
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
