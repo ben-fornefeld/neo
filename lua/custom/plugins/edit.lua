@@ -1,4 +1,28 @@
+local mermaid = require 'custom.mermaid'
+
 return {
+  {
+    'selimacerbas/mdkite.nvim',
+    dependencies = { 'selimacerbas/kitehost.nvim' },
+    cmd = 'MdKite',
+    opts = {},
+  },
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
+    ft = 'markdown',
+    cmd = 'RenderMarkdown',
+    keys = {
+      { '<leader>um', '<cmd>RenderMarkdown toggle<cr>', desc = 'Toggle Markdown preview' },
+    },
+    opts = {
+      render_modes = true,
+      anti_conceal = { enabled = false },
+      win_options = { concealcursor = { rendered = 'nvic' } },
+      code = { disable = { 'mermaid' } },
+      on = { render = mermaid.render, clear = mermaid.clear },
+    },
+  },
   {
     'leap.nvim',
     url = 'https://codeberg.org/andyg/leap.nvim',

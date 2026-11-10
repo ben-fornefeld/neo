@@ -1,0 +1,14 @@
+{
+  "look": "classic",
+  "layout": "dagre",
+  "fontFamily": "Inter, sans-serif",
+  "themeVariables": {
+    "fontFamily": "Inter, sans-serif",
+    "fontSize": "18px"
+  },
+  "flowchart": {
+    "curve": "linear",
+    "nodeSpacing": 32,
+    "rankSpacing": 48
+  }
+}

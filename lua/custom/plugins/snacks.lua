@@ -1,3 +1,5 @@
+local mermaid = require 'custom.mermaid'
+
 local function toggle_explorer(dashboard)
   local function open()
     Snacks.explorer()
@@ -76,6 +78,12 @@ return {
         replace_netrw = true,
       },
       indent = { enabled = true },
+      image = {
+        enabled = true,
+        cache = mermaid.cache(),
+        doc = { enabled = false }, -- RenderMarkdown owns diagram visibility and the source toggle.
+        convert = { notify = true, mermaid = mermaid.args },
+      },
       input = { enabled = true },
       notifier = {
         enabled = true,

@@ -98,6 +98,7 @@ return {
         'hcl',
         'terraform',
         'markdown',
+        'markdown_inline',
         'dart',
         'elixir',
         'templ',

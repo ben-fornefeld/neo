@@ -110,6 +110,44 @@ examples of adding popularly requested plugins.
 
 ### FAQ
 
+#### Markdown preview
+
+Markdown opens rendered inside Neovim by default. Use `:RenderMarkdown toggle`
+or `<leader>um` to switch all Markdown buffers between preview and source.
+New Markdown buffers follow that choice for the rest of the session; restarting
+Neovim restores preview as the default. Use `:RenderMarkdown buf_toggle` to switch
+only the current buffer. The underlying Markdown text is never changed.
+
+Mermaid code blocks render as inline diagrams in Ghostty or Kitty, including
+Herdr with Kitty graphics enabled. This requires Mermaid CLI 12 or newer
+(`mmdc`) and ImageMagick. The same preview/source toggles hide and restore
+diagrams. Other terminals retain the Mermaid source instead.
+
+On Omarchy, install the renderer, image tools, and diagram font:
+
+```sh
+omarchy pkg add mermaid-cli imagemagick inter-font
+```
+
+On macOS, with Node.js and npm available:
+
+```sh
+brew install imagemagick
+brew install --cask font-inter
+npm install -g @mermaid-js/mermaid-cli
+```
+
+Diagrams use a high-contrast Redux theme, the classic Dagre layout, straight flowchart
+connectors, and Inter text. PNGs render at 3x resolution without enlarging the
+diagram. Wide windows allow up to 100 columns. Edit `mermaid.json` to tune the
+look, then restart Neovim; its contents determine the image cache directory so
+old diagram styles are not reused. Light and dark modes use matching themes.
+
+For a browser preview, use `:MdKite`; stop it with `:MdKite stop`.
+
+Check the in-editor preview with `nvim --headless -c 'luafile tests/markdown.lua'`.
+Check Mermaid conversion and toggles with `nvim --headless -c 'luafile tests/mermaid.lua'`.
+
 * What should I do if I already have a pre-existing neovim configuration?
   * You should back it up and then delete all associated files.
   * This includes your existing init.lua and the neovim files in `~/.local`
