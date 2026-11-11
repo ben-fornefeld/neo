@@ -1,0 +1,33 @@
+flowchart TB
+  subgraph ingress[Request handling]
+    Client[Client] --> Gateway[Gateway]
+    Gateway --> Auth{Authorized?}
+    Auth -->|yes| API[API service]
+    Auth -->|no| Reject[Reject request]
+  end
+
+  subgraph processing[Async processing]
+    Queue[Work queue] --> Worker[Worker]
+    Worker --> Dedupe{Already handled?}
+    Dedupe -->|yes| Ack[Acknowledge]
+    Dedupe -->|no| Process[Process work]
+    Process -->|success| Commit[Commit result]
+    Process -->|failure| Retry{Retries left?}
+    Retry -->|yes| Queue
+  end
+
+  subgraph storage[State and delivery]
+    Cache[(Cache)]
+    DB[(Database)]
+    Outbox[(Outbox)] --> Notify[Notify client]
+    DLQ[(Dead-letter queue)]
+  end
+
+  API --> Cache
+  API --> Queue
+  Cache -->|miss| DB
+  Dedupe -.-> DB
+  Commit --> DB
+  Commit --> Outbox
+  Retry -->|no| DLQ
+  Notify -.-> Client

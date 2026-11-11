@@ -1,14 +1,36 @@
 {
+  "theme": "base",
   "look": "classic",
   "layout": "dagre",
   "fontFamily": "Inter, sans-serif",
+  "themeCSS": ".node .label-container, .node polygon, .cluster rect { stroke-width: 1.5px; } .flowchart-link { stroke-width: 1.5px; } .cluster-label span, .cluster-label text { font-weight: 600; }",
   "themeVariables": {
+    "darkMode": true,
+    "background": "#0f172a",
     "fontFamily": "Inter, sans-serif",
-    "fontSize": "18px"
+    "fontSize": "18px",
+    "primaryColor": "#172d46",
+    "primaryTextColor": "#f1f5f9",
+    "primaryBorderColor": "#7dd3fc",
+    "secondaryColor": "#203a36",
+    "secondaryTextColor": "#f1f5f9",
+    "secondaryBorderColor": "#5eead4",
+    "tertiaryColor": "#2d2842",
+    "tertiaryTextColor": "#f1f5f9",
+    "tertiaryBorderColor": "#c4b5fd",
+    "lineColor": "#a8b6c8",
+    "textColor": "#f1f5f9",
+    "clusterBkg": "#131f30",
+    "clusterBorder": "#64748b",
+    "edgeLabelBackground": "#131f30",
+    "noteBkgColor": "#3d321e",
+    "noteTextColor": "#fde68a",
+    "noteBorderColor": "#eab308"
   },
   "flowchart": {
     "curve": "linear",
-    "nodeSpacing": 32,
-    "rankSpacing": 48
+    "nodeSpacing": 40,
+    "rankSpacing": 56,
+    "subGraphTitleMargin": { "top": 8, "bottom": 8 }
   }
 }

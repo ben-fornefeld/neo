@@ -137,11 +137,32 @@ brew install --cask font-inter
 npm install -g @mermaid-js/mermaid-cli
 ```
 
-Diagrams use a high-contrast Redux theme, the classic Dagre layout, straight flowchart
-connectors, and Inter text. PNGs render at 3x resolution without enlarging the
-diagram. Wide windows allow up to 100 columns. Edit `mermaid.json` to tune the
-look, then restart Neovim; its contents determine the image cache directory so
-old diagram styles are not reused. Light and dark modes use matching themes.
+Diagrams use blue nodes, quiet slate groups, neutral connectors, and high-contrast
+Inter text. The dark and light palettes keep at least 4.5:1 text contrast against
+their solid fills; labels and shapes remain the main way to distinguish meaning.
+Background outside groups stays transparent and follows your terminal.
+
+The classic Dagre layout and straight connectors remain the default. In the
+[complex comparison sample](tests/fixtures/mermaid-complex.mmd), Dagre kept the
+request, processing, and storage groups in a clearer reading order than ELK.
+ELK can still help with other graphs; opt in for an individual diagram:
+
+````markdown
+```mermaid
+---
+config:
+  layout: elk
+---
+flowchart LR
+  A[Input] --> B[Process] --> C[Result]
+```
+````
+
+PNGs render at 3x resolution without enlarging the diagram. Wide windows allow
+up to 100 columns. Edit `mermaid.json` (dark) or `mermaid-light.json` (light) to
+tune the look, then restart Neovim. Both files determine the image cache
+directory so old styles are not reused. Very large charts still need screen
+space; color and routing cannot prevent text from shrinking to fit the preview.
 
 For a browser preview, use `:MdKite`; stop it with `:MdKite stop`.
 

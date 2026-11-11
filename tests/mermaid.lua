@@ -1,5 +1,35 @@
 local ok, err = xpcall(function()
   assert(vim.fn.executable 'mmdc' == 1, 'install mermaid-cli before running this test')
+  local function luminance(hex)
+    local rgb = {}
+    for component in hex:gmatch '%x%x' do
+      local value = tonumber(component, 16) / 255
+      rgb[#rgb + 1] = value <= 0.04045 and value / 12.92 or ((value + 0.055) / 1.055) ^ 2.4
+    end
+    return rgb[1] * 0.2126 + rgb[2] * 0.7152 + rgb[3] * 0.0722
+  end
+  local function contrast(a, b)
+    local x, y = luminance(a), luminance(b)
+    return (math.max(x, y) + 0.05) / (math.min(x, y) + 0.05)
+  end
+  for _, file in ipairs { 'mermaid.json', 'mermaid-light.json' } do
+    local config = vim.json.decode(table.concat(vim.fn.readfile(vim.fn.stdpath 'config' .. '/' .. file), '\n'))
+    local colors = config.themeVariables
+    assert(config.theme == 'base' and config.layout == 'dagre' and config.look == 'classic')
+    for _, pair in ipairs {
+      { 'primaryTextColor', 'primaryColor' },
+      { 'secondaryTextColor', 'secondaryColor' },
+      { 'tertiaryTextColor', 'tertiaryColor' },
+      { 'textColor', 'clusterBkg' },
+      { 'textColor', 'edgeLabelBackground' },
+      { 'noteTextColor', 'noteBkgColor' },
+    } do
+      assert(contrast(colors[pair[1]], colors[pair[2]]) >= 4.5, file .. ': insufficient text contrast')
+    end
+    assert(contrast(colors.lineColor, colors.clusterBkg) >= 3, file .. ': insufficient connector contrast')
+    assert(contrast(colors.primaryBorderColor, colors.primaryColor) >= 3, file .. ': insufficient node border contrast')
+    assert(contrast(colors.clusterBorder, colors.clusterBkg) >= 3, file .. ': insufficient group border contrast')
+  end
   local terminal = Snacks.image.terminal
   -- Emulate terminal capabilities; conversion and image placements use the real implementations.
   terminal._terminal = { terminal = 'ghostty', version = 'test' }
@@ -76,6 +106,17 @@ local ok, err = xpcall(function()
   vim.api.nvim_buf_delete(second, { force = true })
   assert(second_image.closed, 'deleting a buffer should release its diagram')
 
+  local source = vim.fn.readfile(vim.fn.stdpath 'config' .. '/tests/fixtures/mermaid-complex.mmd')
+  for _, layout in ipairs { 'dagre', 'elk' } do
+    lines = { '# Complex preview', '', '```mermaid', '---', 'config:', '  layout: ' .. layout, '---' }
+    vim.list_extend(lines, source)
+    lines[#lines + 1] = '```'
+    local complex = open_markdown()
+    wait_for(ready_image, layout .. ' should render the complex graph through the preview pipeline')
+    assert(vim.deep_equal(lines, vim.api.nvim_buf_get_lines(complex, 0, -1, false)), 'layout overrides must not change source')
+    vim.api.nvim_buf_delete(complex, { force = true })
+  end
+
   local background = vim.o.background
   vim.o.background = 'light'
   lines = { '# Sequence preview', '', '```mermaid', 'sequenceDiagram', '  Reader->>Editor: Preview Markdown', '```' }
@@ -83,7 +124,7 @@ local ok, err = xpcall(function()
   wait_for(ready_image, 'sequence diagrams should render with the light theme')
   assert(placements[#placements].img.file:find '%.light%.png$', 'light and dark themes must not share images')
   local args = require('custom.mermaid').args()
-  assert(args[8] == 'redux', 'light mode should use the light Redux theme')
+  assert(args[8] == vim.fn.stdpath 'config' .. '/mermaid-light.json', 'light mode should select the light palette')
   vim.api.nvim_buf_delete(light, { force = true })
   vim.o.background = background
 
@@ -102,7 +143,7 @@ local ok, err = xpcall(function()
   terminal._env.supported = false
   mermaid.render { buf = buf }
   assert(#placements == count, 'unsupported terminals should retain source text without image placements')
-  print 'Mermaid conversion, inline placement, editing, toggles, cleanup, and stale callbacks: OK'
+  print 'Mermaid palettes, complex layouts, conversion, sizing, toggles, cleanup, and stale callbacks: OK'
 end, debug.traceback)
 
 if not ok then

@@ -1,15 +1,17 @@
 local M = {}
 local buffers = {}
 local config = vim.fn.stdpath 'config' .. '/mermaid.json'
+local light_config = vim.fn.stdpath 'config' .. '/mermaid-light.json'
 local scale = 3
 
 function M.args()
-  local theme = vim.o.background == 'light' and 'redux' or 'redux-dark'
-  return { '-i', '{src}', '-o', '{file}', '-b', 'transparent', '-t', theme, '-c', config, '-s', tostring(scale) }
+  local file = vim.o.background == 'light' and light_config or config
+  return { '-i', '{src}', '-o', '{file}', '-b', 'transparent', '-c', file, '-s', tostring(scale) }
 end
 
 function M.cache()
-  local hash = vim.fn.sha256(table.concat(vim.fn.readfile(config), '\n')):sub(1, 12)
+  local contents = table.concat(vim.fn.readfile(config), '\n') .. '\n' .. table.concat(vim.fn.readfile(light_config), '\n')
+  local hash = vim.fn.sha256(contents):sub(1, 12)
   return vim.fn.stdpath 'cache' .. '/snacks/mermaid-sharp-3x/' .. hash
 end
 
